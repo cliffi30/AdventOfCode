@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 
 namespace PuzzleDay3
 {
@@ -15,7 +14,7 @@ namespace PuzzleDay3
 
         private static void Puzzle1()
         {
-            var lines = System.IO.File.ReadAllLines(@"..\..\..\PuzzleDay3Input.txt");
+            var lines = System.IO.File.ReadAllLines(@"PuzzleDay3Input.txt");
 
             foreach (var line in lines)
             {
@@ -39,17 +38,17 @@ namespace PuzzleDay3
             }
 
             Console.WriteLine($"Treehits from puzzle no1 are {treeCounter}");
-            Console.ReadLine();
+            //Console.ReadLine();
         }
 
         private static void Puzzle2()
         {
-            var lines = System.IO.File.ReadAllLines(@"..\..\..\PuzzleDay3Input.txt");
+            var lines = System.IO.File.ReadAllLines(@"PuzzleDay3Input.txt");
 
-            foreach (var line in lines)
+            /* foreach (var line in lines)
             {
                 Console.WriteLine($"{line}");
-            }
+            } */
 
             var rightSteps = new int[5,2] {{1,1},{3,1},{5,1},{7,1},{1,2}};
             var list = new List<int>();
@@ -60,11 +59,13 @@ namespace PuzzleDay3
                 var lineCounter = 1;
                 var currentX = 0;
                 var treeCounter = 0;
+                var firstLine = true;
 
                 foreach (var line in lines)
                 {
-                    if (lineCounter == lineJumps)
+                    if (lineCounter == lineJumps || firstLine)
                     { 
+                        firstLine = false;
 
                         var positions = line.ToArray();
 
@@ -83,10 +84,18 @@ namespace PuzzleDay3
 
                 list.Add(treeCounter);
             }
+            foreach (var singleResult in list)
+            {
+                System.Console.WriteLine($"Result {singleResult}");
+            }
+            
+            var resultManual = Convert.ToInt64(list[0])
+            * Convert.ToInt64(list[1])
+            * Convert.ToInt64(list[2])
+            * Convert.ToInt64(list[3])
+            * Convert.ToInt64(list[4]);
 
-            var result = list.Aggregate((a, x) => a * x);
-
-            Console.WriteLine($"Treehits from puzzle no.2 are {result}");
+            Console.WriteLine($"Treehits from puzzle no.2 are {resultManual}");
             Console.ReadLine();
         }
     }
