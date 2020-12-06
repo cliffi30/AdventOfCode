@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace PuzzleDay4
 {
@@ -6,16 +8,34 @@ namespace PuzzleDay4
     {
         static void Main(string[] args)
         {
+            var passports = new List<Dictionary<string, string>>();
             var rawPorts = System.IO.File.ReadAllLines(@"../Puzzle4Input.txt");
+
+            var dic = new Dictionary<string, string>();
+
             foreach (var x in rawPorts)
-            System.Console.WriteLine($"{x}");
+            {
+                if (x == "")
+                { 
+                    passports.Add(dic);
+                    dic = new Dictionary<string, string>();
+                    continue; }
+
+                var properties = x.Split(' ');
+
+                foreach (var prop in properties)
+                {
+                    var item = prop.Split(':');
+                    dic.Add(item[0], item[1]);
+                }
+            }
         }
     }
 
-    class Passport 
+    class Passport
     {
         public uint BirthYear { get; set; }
-        public uint IssueYear { get; set; } 
+        public uint IssueYear { get; set; }
         public uint ExpirationYear { get; set; }
         public uint Height { get; set; }
         public string HairColor { get; set; }
