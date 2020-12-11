@@ -29,6 +29,24 @@ namespace PuzzleDay4
                     dic.Add(item[0], item[1]);
                 }
             }
+
+            int validPassports = 0;
+
+            foreach (var passport in passports)
+            {
+                if (passport.Count == 8)
+                {
+                    validPassports++;
+                }
+
+                if (passport.Count == 7 && !passport.ContainsKey("cid"))
+                {
+                    validPassports++;
+                }
+            }
+
+            System.Console.WriteLine($"There are {validPassports} valid passports in the list.");
+            Console.ReadLine();
         }
     }
 
